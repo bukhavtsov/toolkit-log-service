@@ -3,7 +3,7 @@ package main
 import (
 	"time"
 
-	"github.com/bukhavtsov/toolkit-log-service/pkg/pb"
+	pb "github.com/bukhavtsov/toolkit-log-service/pkg/pb"
 	"github.com/bukhavtsov/toolkit-log-service/pkg/svc"
 	"github.com/grpc-ecosystem/go-grpc-middleware"
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus"
@@ -42,11 +42,10 @@ func NewGRPCServer(logger *logrus.Logger) (*grpc.Server, error) {
 	)
 
 	// register service implementation with the grpcServer
-	s, err := svc.NewBasicServer()
+	s, err := svc.NewServer()
 	if err != nil {
 		return nil, err
 	}
 	pb.RegisterToolkitLogServiceServer(grpcServer, s)
-
 	return grpcServer, nil
 }
