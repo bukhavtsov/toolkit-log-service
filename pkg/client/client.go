@@ -17,11 +17,21 @@ type Client struct {
 	log          *logrus.Logger
 }
 
-//FIXME : replace listen to send!
-
 // NewClient returns a new Client.
 func NewClient(gRPCEndpoint string, log *logrus.Logger) *Client {
 	return &Client{gRPCEndpoint: gRPCEndpoint, log: log}
+}
+
+func scanMsg() (string, error) {
+	var msg string
+	_, err := fmt.Fscan(os.Stdin, &msg)
+	if msg == "stop" {
+		return "", nil
+	}
+	if err != nil {
+		return "", nil
+	}
+	return msg, nil
 }
 
 // RunClient run the gRPC client that send messages to server.
@@ -36,13 +46,11 @@ func (c Client) RunClient() error {
 
 	for {
 		c.log.Info("Enter your message:")
-		var msg string
-		_, err := fmt.Fscan(os.Stdin, &msg)
-		if msg == "stop" {
-			return nil
-		}
+		msg, err := scanMsg()
 		if err != nil {
 			c.log.Warning(err)
+		} else if err == nil && msg == "" {
+			return nil
 		}
 		req := &pb.SendMessagesRequest{Msg: msg}
 		err = stream.Send(req)
