@@ -3,6 +3,9 @@ package main
 import (
 	"time"
 
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/keepalive"
+
 	pb "github.com/bukhavtsov/toolkit-log-service/pkg/pb"
 	"github.com/bukhavtsov/toolkit-log-service/pkg/svc"
 	"github.com/grpc-ecosystem/go-grpc-middleware"
@@ -12,8 +15,6 @@ import (
 	"github.com/infobloxopen/atlas-app-toolkit/requestid"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/keepalive"
 )
 
 func NewGRPCServer(logger *logrus.Logger) (*grpc.Server, error) {
