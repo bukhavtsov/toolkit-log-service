@@ -29,7 +29,7 @@ func scanMsg() (string, error) {
 		return "", nil
 	}
 	if err != nil {
-		return "", nil
+		return "", err
 	}
 	return msg, nil
 }
@@ -45,7 +45,7 @@ func (c Client) RunClient() error {
 	stream, err := client.SendMessages(context.Background())
 
 	for {
-		c.log.Info("Enter your message:")
+		c.log.Info("Enter message:")
 		msg, err := scanMsg()
 		if err != nil {
 			c.log.Warning(err)
