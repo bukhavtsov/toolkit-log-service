@@ -11,7 +11,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:aa4e5c637d8b8fefefdced4d4678b62a5adaf59bd6451fdd3897b7319fbbadd9"
+  digest = "1:81d128c0b17ba7051e769b83c9d2080606740f7d051fff56f77e0ef4eb180530"
   name = "github.com/golang/protobuf"
   packages = [
     "jsonpb",
@@ -23,7 +23,6 @@
     "ptypes",
     "ptypes/any",
     "ptypes/duration",
-    "ptypes/empty",
     "ptypes/struct",
     "ptypes/timestamp",
     "ptypes/wrappers"
@@ -116,14 +115,6 @@
   version = "v1.0.2"
 
 [[projects]]
-  digest = "1:53258c295c6d2eb4f69f6008bd7648df4ffaee52ffbf5aae3d5203440d31f669"
-  name = "github.com/lyft/protoc-gen-validate"
-  packages = ["validate"]
-  pruneopts = "UT"
-  revision = "8e6aaf55f4954f1ef9d3ee2e8f5a50e79cc04f8f"
-  version = "v0.0.5"
-
-[[projects]]
   digest = "1:5a0ef768465592efca0412f7e838cdc0826712f8447e70e6ccc52eb441e9ab13"
   name = "github.com/magiconair/properties"
   packages = ["."]
@@ -200,9 +191,10 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:ec0b21c65dd414b1306ee9b9f6f2e7d631029dd4c4b274a7d37f332c5fbabe28"
+  digest = "1:970a34b46fc4d6dcea441fb2f1419c40fa47fd53fc800bbf0951efda11d99df7"
   name = "golang.org/x/net"
   packages = [
+    "context",
     "http/httpguts",
     "http2",
     "http2/hpack",
@@ -248,10 +240,9 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:941cec5e70c11edfcc66bcf423228d39dd2bbaba6e3de2caf6e233a262d544d9"
+  digest = "1:3cf4504654a7fd17aa5ea703f61524820cc211d022dcd22635704700f443eb00"
   name = "google.golang.org/genproto"
   packages = [
-    "googleapis/api/annotations",
     "googleapis/api/httpbody",
     "googleapis/rpc/code",
     "googleapis/rpc/status",
@@ -315,22 +306,19 @@
   analyzer-version = 1
   input-imports = [
     "github.com/golang/protobuf/proto",
-    "github.com/golang/protobuf/ptypes",
-    "github.com/golang/protobuf/ptypes/empty",
     "github.com/grpc-ecosystem/go-grpc-middleware",
     "github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus",
     "github.com/grpc-ecosystem/go-grpc-middleware/validator",
-    "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger/options",
     "github.com/infobloxopen/atlas-app-toolkit/gateway",
     "github.com/infobloxopen/atlas-app-toolkit/gorm/resource",
     "github.com/infobloxopen/atlas-app-toolkit/requestid",
     "github.com/infobloxopen/atlas-app-toolkit/server",
-    "github.com/lyft/protoc-gen-validate/validate",
     "github.com/sirupsen/logrus",
     "github.com/spf13/pflag",
     "github.com/spf13/viper",
-    "google.golang.org/genproto/googleapis/api/annotations",
-    "google.golang.org/grpc"
+    "golang.org/x/net/context",
+    "google.golang.org/grpc",
+    "google.golang.org/grpc/keepalive"
   ]
   solver-name = "gps-cdcl"
   solver-version = 1
