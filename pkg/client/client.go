@@ -3,7 +3,7 @@ package client
 import (
 	"context"
 	"fmt"
-	"os"
+	"time"
 
 	"google.golang.org/grpc"
 
@@ -22,18 +22,6 @@ func NewClient(gRPCEndpoint string, log *logrus.Logger) *Client {
 	return &Client{gRPCEndpoint: gRPCEndpoint, log: log}
 }
 
-func scanMsg() (string, error) {
-	var msg string
-	_, err := fmt.Fscan(os.Stdin, &msg)
-	if msg == "stop" {
-		return "", nil
-	}
-	if err != nil {
-		return "", err
-	}
-	return msg, nil
-}
-
 // RunClient run the gRPC client that send messages to server.
 func (c Client) RunClient() error {
 	conn, err := grpc.Dial(c.gRPCEndpoint, grpc.WithInsecure())
@@ -44,18 +32,13 @@ func (c Client) RunClient() error {
 	client := pb.NewToolkitLogServiceClient(conn)
 	stream, err := client.SendMessages(context.Background())
 
-	for {
-		c.log.Info("Enter message:")
-		msg, err := scanMsg()
-		if err != nil {
-			c.log.Warning(err)
-		} else if err == nil && msg == "" {
-			return nil
-		}
+	for i := 0; ; i++ {
+		msg := fmt.Sprintf("msg#%d ", i)
 		req := &pb.SendMessagesRequest{Msg: msg}
 		err = stream.Send(req)
 		if err != nil {
 			return err
 		}
+		time.Sleep(time.Second * 5)
 	}
 }

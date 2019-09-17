@@ -14,7 +14,7 @@ var (
 
 func init() {
 	if gRPCEndpoint == "" {
-		gRPCEndpoint = "localhost:9090"
+		gRPCEndpoint = "localhost:8080"
 	}
 
 	log = logrus.New()
@@ -24,6 +24,7 @@ func init() {
 
 func main() {
 	c := client.NewClient(gRPCEndpoint, log)
+	log.Printf("listening gRPC at %s", gRPCEndpoint)
 	if err := c.RunClient(); err != nil {
 		log.Fatal(err)
 	}
