@@ -73,3 +73,8 @@ clean: ## remove binary, images server:latest, client:latest and dangling images
 	@docker images --quiet --filter=dangling=true | xargs --no-run-if-empty docker rmi
 	@docker rmi -f $(SERVER_IMAGE_NAME) || echo "$(SERVER_IMAGE_NAME) does not exist"
 	@docker rmi -f $(CLIENT_IMAGE_NAME) || echo "$(CLIENT_IMAGE_NAME) does not exist"
+
+.PHONY: run-image
+run-image: image ## run new container server_container
+	@echo "Starting container..."
+	@docker run --rm --name $(CONTAINER_NAME) -it -p 1514:1514/udp $(IMAGE_NAME) || true
